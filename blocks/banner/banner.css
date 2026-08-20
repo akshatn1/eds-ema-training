@@ -1,0 +1,56 @@
+.banner {
+  display: grid;
+  overflow: hidden;
+  color: white;
+  background: #1473e6;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgb(0 0 0 / 18%);
+}
+
+.banner .banner-media,
+.banner .banner-media > div {
+  min-height: 220px;
+}
+
+.banner .banner-media picture,
+.banner .banner-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.banner .banner-media img {
+  object-fit: cover;
+}
+
+.banner .banner-content {
+  display: flex;
+  align-items: center;
+  padding: 32px;
+}
+
+.banner .banner-content > div {
+  width: 100%;
+}
+
+.banner .banner-content :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  color: inherit;
+}
+
+/* Author as Banner (dark) or Banner (banner-dark). */
+.banner.dark,
+.banner.banner-dark {
+  background: #161616;
+}
+
+@media (width >= 600px) {
+  .banner {
+    grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+  }
+
+  .banner .banner-media,
+  .banner .banner-media > div {
+    min-height: 320px;
+  }
+}

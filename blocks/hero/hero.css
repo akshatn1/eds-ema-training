@@ -30,6 +30,13 @@
   height: 100%;
 }
 
+#hero-title-text-testing {
+  color: #1e06f3;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
 @media (width >= 900px) {
   .hero {
     padding: 40px 32px;
