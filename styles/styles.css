@@ -18,6 +18,7 @@
   --text-color: #f0f;
   --link-color: #3b63fb;
   --link-hover-color: #f00;
+  --light-grey-color: #D3D3D3;
 
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;
@@ -319,7 +320,7 @@ main > .section:first-of-type {
 /* section metadata */
 main .section.light,
 main .section.highlight {
-  background-color: var(--light-color);
+  background-color: var(--light-grey-color);
   margin: 0;
   padding: 40px 0;
 }
