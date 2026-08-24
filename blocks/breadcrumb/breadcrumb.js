@@ -5,7 +5,9 @@ import { getMetadata } from '../../scripts/lib-franklin.js';
  * @param {HTMLElement} $block The main element
  */
 export default function decorate($block) {
-  const title = getMetadata('og:title');
+  const title = getMetadata('og:title') || getMetadata('title') || document.title;
+  $block.setAttribute('aria-label', 'Breadcrumb');
+  $block.innerHTML = '';
   const $ul = document.createElement('ul');
   $block.append($ul);
   const trail = [{
