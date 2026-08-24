@@ -1,0 +1,244 @@
+.photo-gallery .photo-gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.photo-gallery .photo-gallery-item {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  border: 2px solid color-mix(in srgb, var(--text-color) 35%, transparent);
+  border-radius: 16px;
+  background: var(--background-color);
+  box-shadow: 0 10px 24px rgb(0 0 0 / 12%);
+}
+
+.photo-gallery .photo-gallery-trigger {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.photo-gallery .photo-gallery-trigger picture,
+.photo-gallery .photo-gallery-trigger img {
+  display: block;
+  width: 100%;
+}
+
+.photo-gallery .photo-gallery-trigger img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 180ms ease;
+}
+
+.photo-gallery .photo-gallery-trigger:hover img {
+  transform: scale(1.035);
+}
+
+.photo-gallery .photo-gallery-trigger:focus-visible {
+  outline: 4px solid var(--link-color);
+  outline-offset: -4px;
+}
+
+.photo-gallery .photo-gallery-item > figcaption {
+  padding: 12px 16px 14px;
+  color: var(--text-color);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+dialog.photo-gallery-dialog {
+  width: min(1100px, calc(100% - 24px));
+  max-width: none;
+  max-height: calc(100dvh - 24px);
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid var(--text-color);
+  border-radius: 18px;
+  background: var(--background-color);
+  color: var(--text-color);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 45%);
+}
+
+dialog.photo-gallery-dialog::backdrop {
+  background: rgb(0 0 0 / 82%);
+  backdrop-filter: blur(3px);
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-viewer {
+  padding: 12px;
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-toolbar {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-counter {
+  margin: 0;
+  font-size: var(--body-font-size-s);
+  font-weight: 600;
+}
+
+dialog.photo-gallery-dialog button {
+  display: inline-grid;
+  place-items: center;
+  border: 2px solid var(--text-color);
+  border-radius: 999px;
+  background: var(--background-color);
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+dialog.photo-gallery-dialog button:hover,
+dialog.photo-gallery-dialog button:focus-visible {
+  border-color: var(--link-hover-color);
+  background: var(--light-color);
+  color: var(--link-hover-color);
+}
+
+dialog.photo-gallery-dialog button:focus-visible {
+  outline: 3px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-close,
+dialog.photo-gallery-dialog .photo-gallery-dialog-play {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-weight: 700;
+  line-height: 1;
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-stage {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 38px;
+  align-items: center;
+  gap: 6px;
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-nav {
+  width: 38px;
+  height: 52px;
+  padding: 0;
+  font-size: 36px;
+  line-height: 1;
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-figure {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-width: 0;
+  margin: 0;
+}
+
+/* The modal and grid use separate image contexts. */
+/* stylelint-disable no-descending-specificity */
+dialog.photo-gallery-dialog .photo-gallery-dialog-media {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #111;
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-media picture,
+dialog.photo-gallery-dialog .photo-gallery-dialog-media img {
+  display: block;
+  width: 100%;
+  max-height: calc(100dvh - 230px);
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-media img {
+  object-fit: contain;
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-figure > figcaption {
+  min-height: 1.4em;
+  padding: 8px 8px 2px;
+  text-align: center;
+  font-weight: 600;
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-thumbnails {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 4px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-thumbnail {
+  flex: 0 0 72px;
+  width: 72px;
+  height: 52px;
+  padding: 2px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-thumbnail.current {
+  border-color: var(--link-color);
+  box-shadow: 0 0 0 2px var(--link-color);
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-thumbnail picture,
+dialog.photo-gallery-dialog .photo-gallery-dialog-thumbnail img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+dialog.photo-gallery-dialog .photo-gallery-dialog-thumbnail img {
+  object-fit: cover;
+}
+/* stylelint-enable no-descending-specificity */
+
+@media (width >= 600px) {
+  .photo-gallery .photo-gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  dialog.photo-gallery-dialog .photo-gallery-dialog-viewer {
+    padding: 16px;
+  }
+
+  dialog.photo-gallery-dialog .photo-gallery-dialog-stage {
+    grid-template-columns: 48px minmax(0, 1fr) 48px;
+    gap: 12px;
+  }
+
+  dialog.photo-gallery-dialog .photo-gallery-dialog-nav {
+    width: 48px;
+    height: 64px;
+  }
+}
+
+@media (width >= 900px) {
+  .photo-gallery .photo-gallery-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-gallery .photo-gallery-trigger img {
+    transition: none;
+  }
+
+  dialog.photo-gallery-dialog::backdrop {
+    backdrop-filter: none;
+  }
+}

@@ -1,46 +1,74 @@
 
-nav.breadcrumb {
-    grid-area: bread;
-    display: inline-block;
-    list-style: none;
-    padding: 0;
-    font-size: 14px;
+.breadcrumb {
+  grid-area: bread;
+  max-width: 100%;
+  margin: 0 0 26px;
+  padding: 0 0 10px;
+  border-bottom: 2px solid rgb(32 32 32 / 22%);
+  color: #202020;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  overflow-x: auto;
 }
 
 .breadcrumb ul {
-    padding-top: 0;
-    margin-top: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .breadcrumb li {
-    display: inline-block;
-    padding: 10px 5px;
-    text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
 }
 
 .breadcrumb li a {
-    color: #202020;
-    text-decoration: none;
-    font-weight: 600;
+  color: #202020;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 160ms ease;
 }
 
-.breadcrumb li:first-child {
-    padding-left: 0;
+.breadcrumb li a:hover,
+.breadcrumb li a:focus-visible {
+  color: #f000c8;
+  text-decoration: none;
+}
+
+.breadcrumb li:last-child {
+  max-width: 32ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #f000c8;
+  font-weight: 700;
 }
 
 .breadcrumb li::before {
-    font-family: arial, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    font-size: 14px;
-    content: "▶";
-    color: #ffea00;
-    padding-right: 5px;
+  content: "▶";
+  padding: 0 8px;
+  color: #ffea00;
+  font-family: sans-serif;
+  font-size: 13px;
+  line-height: 1;
 }
 
 .breadcrumb li:first-child::before {
-    content: none;
+  content: none;
+}
+
+@media (width >= 600px) {
+  .breadcrumb {
+    margin-bottom: 32px;
+    font-size: 15px;
+  }
 }
