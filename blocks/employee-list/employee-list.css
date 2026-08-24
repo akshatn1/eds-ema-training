@@ -55,6 +55,10 @@
   margin-top: 8px;
 }
 
+.employee-list .employee-list-load-more[hidden] {
+  display: none;
+}
+
 .employee-list .employee-list-error {
   padding: 16px;
   border: 2px solid var(--link-hover-color);
