@@ -66,6 +66,27 @@ function prioritizeLCPImage(main) {
 }
 
 /**
+ * Removes invalid image placeholders emitted for unresolved authored assets.
+ * @param {HTMLElement} root The element containing authored content
+ */
+function removeInvalidImages(root) {
+  root.querySelectorAll('img[src="about:error"]').forEach((image) => {
+    const imageContainer = image.closest('picture') || image;
+    const parent = imageContainer.parentElement;
+    imageContainer.remove();
+
+    if (
+      parent
+      && !parent.children.length
+      && !parent.textContent.trim()
+      && /^(H[1-6]|P)$/.test(parent.tagName)
+    ) {
+      parent.remove();
+    }
+  });
+}
+
+/**
  * Turns `/widgets/...` links into widget blocks.
  * @param {Element} main The container element
  */
@@ -164,6 +185,7 @@ function decorateButtons(main) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
+  removeInvalidImages(main);
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
