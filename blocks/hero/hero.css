@@ -5,8 +5,17 @@
 
 .hero {
   position: relative;
+  isolation: isolate;
   padding: 40px 24px;
   min-height: 300px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: rgb(0 0 0 / 50%);
 }
 
 .hero h1 {
@@ -18,7 +27,7 @@
 
 .hero picture {
   position: absolute;
-  z-index: -1;
+  z-index: -2;
   inset: 0;
   object-fit: cover;
   box-sizing: border-box;
@@ -31,7 +40,7 @@
 }
 
 #hero-title-text-testing {
-  color: #1e06f3;
+  color: #fff;
   text-align: center;
   margin-top: 0;
   margin-bottom: 1rem;

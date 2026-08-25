@@ -50,6 +50,22 @@ async function loadFonts() {
 }
 
 /**
+ * Gives the above-the-fold image an early network priority hint.
+ * @param {HTMLElement} main The main element
+ */
+function prioritizeLCPImage(main) {
+  const firstSection = main.firstElementChild;
+  const firstImage = firstSection?.querySelector('img');
+  const image = firstSection?.querySelector('.hero picture img')
+    || firstSection?.querySelector('picture img')
+    || firstImage;
+  if (!image) return;
+
+  image.loading = 'eager';
+  image.fetchPriority = 'high';
+}
+
+/**
  * Turns `/widgets/...` links into widget blocks.
  * @param {Element} main The container element
  */
@@ -160,10 +176,12 @@ export function decorateMain(main) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
+  const isDesktop = window.innerWidth >= 900;
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
+    prioritizeLCPImage(main);
     decorateMain(main);
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
@@ -171,7 +189,7 @@ async function loadEager(doc) {
 
   try {
     /* if desktop (proxy for fast connection) or fonts already loaded, load fonts.css */
-    if (window.innerWidth >= 900 || sessionStorage.getItem('fonts-loaded')) {
+    if (isDesktop || sessionStorage.getItem('fonts-loaded')) {
       loadFonts();
     }
   } catch (e) {
