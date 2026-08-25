@@ -1,0 +1,112 @@
+.article-list .article-list-status {
+  margin: 0 0 20px;
+  font-size: var(--body-font-size-s);
+  font-weight: 600;
+}
+
+.article-list .article-list-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-list .article-list-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 2px solid var(--text-color);
+  border-radius: 16px;
+  background: var(--background-color);
+  box-shadow: 0 10px 24px rgb(0 0 0 / 12%);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.article-list .article-list-card:hover {
+  box-shadow: 0 14px 30px rgb(0 0 0 / 18%);
+  transform: translateY(-3px);
+}
+
+.article-list .article-list-card-link:any-link {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.article-list .article-list-card-link:focus-visible {
+  outline: 4px solid var(--link-color);
+  outline-offset: -4px;
+}
+
+.article-list .article-list-card-image {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--light-color);
+}
+
+.article-list .article-list-card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 240ms ease;
+}
+
+.article-list .article-list-card:hover .article-list-card-image img {
+  transform: scale(1.03);
+}
+
+.article-list .article-list-card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.article-list .article-list-card-title {
+  margin: 0;
+  font-size: var(--heading-font-size-m);
+}
+
+.article-list .article-list-card-description {
+  margin: 10px 0 18px;
+  font-size: var(--body-font-size-s);
+}
+
+.article-list .article-list-card-path {
+  margin-top: auto;
+  color: var(--link-color);
+  font-size: var(--body-font-size-xs);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.article-list .article-list-error {
+  padding: 16px;
+  border: 2px solid var(--link-hover-color);
+  border-radius: 10px;
+  background: var(--light-color);
+  color: var(--dark-color);
+}
+
+@media (width >= 600px) {
+  .article-list .article-list-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 900px) {
+  .article-list .article-list-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .article-list .article-list-card,
+  .article-list .article-list-card-image img {
+    transition: none;
+  }
+}
