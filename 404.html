@@ -7,14 +7,32 @@
     content="script-src 'nonce-aem' 'strict-dynamic' 'unsafe-inline' http: https:; base-uri 'self'; object-src 'none';"
     move-to-http-header="true"
   >
-  <title>Page not found</title>
+  <title>Page not found | EDS EMA Training</title>
   <script nonce="aem" type="text/javascript">
     window.isErrorPage = true;
     window.errorCode = '404';
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:title" content="Page not found">
-  <script nonce="aem" src="/scripts/scripts.js" type="module"></script>
+  <meta name="description" content="The page you requested could not be found.">
+  <meta property="og:title" content="Page not found | EDS EMA Training">
+  <script nonce="aem" type="module">
+    try {
+      const response = await fetch('/404.plain.html');
+      if (response.ok) {
+        const template = document.createElement('template');
+        template.innerHTML = await response.text();
+        const authoredContent = template.content.querySelector('main') || template.content;
+        const authoredSection = authoredContent.querySelector('.section') || authoredContent;
+        const errorContent = document.querySelector('.error-authored-content');
+        if (authoredSection.textContent.trim()) {
+          errorContent.replaceChildren(...authoredSection.childNodes);
+        }
+      }
+    } catch (error) {
+      // Keep the built-in fallback when the authored error page is unavailable.
+    }
+    await import('/scripts/scripts.js');
+  </script>
   <script nonce="aem" type="module">
     window.addEventListener('load', () => {
       if (document.referrer) {
@@ -26,7 +44,7 @@
           backBtn.textContent = 'Go back';
           backBtn.title = 'Go back';
           const btnContainer = document.querySelector('.button-container');
-          btnContainer.append(backBtn);
+          if (btnContainer) btnContainer.append(backBtn);
         }
       }
     });
@@ -38,17 +56,90 @@
   <link rel="stylesheet" href="/styles/styles.css">
   <style>
     main.error {
+      box-sizing: border-box;
       min-height: calc(100vh - var(--nav-height));
       display: flex;
       align-items: center;
+      justify-content: center;
+      padding: 48px 20px;
     }
 
-    main.error .error-number {
+    main.error .error-shell {
+      box-sizing: border-box;
+      width: min(100%, 960px);
+      margin: 0;
+      border: 4px solid var(--text-color);
+      border-radius: 24px;
+      padding: 36px 24px;
+      background: var(--light-color);
+      box-shadow: 12px 12px 0 var(--text-color);
+      color: var(--dark-color);
+    }
+
+    main.error > .section {
       width: 100%;
+      margin: 0;
     }
 
-    main.error .error-number text {
-      font-family: monospace;
+    main.error .error-code {
+      color: var(--text-color);
+      font-family: var(--heading-font-family);
+      font-size: clamp(88px, 28vw, 190px);
+      font-weight: 700;
+      letter-spacing: -0.08em;
+      line-height: 0.8;
+    }
+
+    main.error .error-eyebrow {
+      margin: 32px 0 0;
+      color: var(--text-color);
+      font-size: var(--body-font-size-s);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    main.error .error-authored-content h1,
+    main.error .error-authored-content h2 {
+      margin-top: 12px;
+      color: var(--dark-color);
+      font-size: clamp(36px, 8vw, 64px);
+      line-height: 1;
+    }
+
+    main.error .error-authored-content p {
+      max-width: 620px;
+    }
+
+    main.error .error-authored-content .button-wrapper {
+      display: inline-flex;
+      margin-right: 8px;
+      margin-top: 28px;
+    }
+
+    main.error a.button.primary:any-link {
+      border-color: var(--text-color);
+      background: var(--text-color);
+      color: var(--light-color);
+    }
+
+    main.error a.button.secondary:any-link {
+      border-color: var(--text-color);
+      color: var(--text-color);
+    }
+
+    @media (width >= 900px) {
+      main.error .error-shell {
+        display: grid;
+        grid-template-columns: minmax(260px, 0.8fr) 1.2fr;
+        align-items: center;
+        gap: 48px;
+        padding: 56px;
+      }
+
+      main.error .error-eyebrow {
+        margin-top: 0;
+      }
     }
   </style>
   <link rel="stylesheet" href="/styles/lazy-styles.css">
@@ -58,13 +149,18 @@
   <header></header>
   <main class="error">
     <div class="section">
-      <svg viewBox="1 0 38 18" class="error-number">
-        <text x="0" y="17">404</text>
-      </svg>
-      <h2 class="error-message">Page Not Found</h2>
-      <p class="button-container">
-        <a href="/" class="button secondary error-button-home">Go home</a>
-      </p>
+      <article class="error-shell">
+        <div class="error-code" aria-hidden="true">404</div>
+        <div class="error-copy">
+          <p class="error-eyebrow">Lost, but not alone</p>
+          <div class="error-authored-content">
+            <h1>Looks like this page wandered off.</h1>
+            <p>We couldn't find the page you requested. It may have moved, or the address may be incorrect.</p>
+            <p><strong><a href="/">Return home</a></strong></p>
+            <p><em><a href="/article-list">Browse site pages</a></em></p>
+          </div>
+        </div>
+      </article>
     </div>
   </main>
   <footer></footer>
