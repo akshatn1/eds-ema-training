@@ -54,3 +54,80 @@
     min-height: 320px;
   }
 }
+
+/* Author as Banner (dark, compact) for short, text-led banners. */
+.banner.compact {
+  grid-template-columns: 1fr;
+  gap: 12px;
+  padding: 40px 28px;
+  text-align: center;
+  background: linear-gradient(135deg, #161616 0%, #292929 100%);
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgb(0 0 0 / 18%);
+}
+
+.banner.compact .banner-media,
+.banner.compact .banner-media > div {
+  display: flex;
+  min-height: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner.compact .banner-media :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  color: #7dd3fc;
+  font-size: clamp(64px, 18vw, 112px);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.banner.compact .banner-content {
+  justify-content: center;
+  padding: 12px 0 0;
+}
+
+.banner.compact .banner-content :is(h1, h2, h3, h4, h5, h6) {
+  max-width: 680px;
+  font-size: clamp(30px, 7vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+main > .section:has(.banner.compact) {
+  margin: 0;
+  padding: clamp(40px, 7vw, 88px) 0;
+  background: linear-gradient(180deg, #f5f7fb 0%, #fff 100%);
+}
+
+.banner-wrapper:has(.banner.compact) + .default-content-wrapper {
+  max-width: 720px;
+  padding-top: 28px;
+  color: #292929;
+  text-align: center;
+}
+
+.banner-wrapper:has(.banner.compact) + .default-content-wrapper .button-wrapper {
+  display: inline-block;
+  margin: 10px 6px 0;
+}
+
+@media (width >= 600px) {
+  .banner.compact {
+    grid-template-columns: minmax(180px, 0.35fr) minmax(0, 1fr);
+    gap: 40px;
+    padding: 56px 64px;
+    text-align: left;
+  }
+
+  .banner.compact .banner-media,
+  .banner.compact .banner-media > div,
+  .banner.compact .banner-content {
+    justify-content: flex-start;
+  }
+
+  .banner.compact .banner-content {
+    padding: 0;
+  }
+}
