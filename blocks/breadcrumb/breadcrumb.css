@@ -40,7 +40,7 @@
 
 .breadcrumb li a:hover,
 .breadcrumb li a:focus-visible {
-  color: #f000c8;
+  color: #8b005f;
   text-decoration: none;
 }
 
@@ -49,14 +49,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #f000c8;
+  color: #8b005f;
   font-weight: 700;
 }
 
 .breadcrumb li::before {
   content: "▶";
   padding: 0 8px;
-  color: #ffea00;
+  color: #595959;
   font-family: sans-serif;
   font-size: 13px;
   line-height: 1;
