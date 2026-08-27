@@ -10,6 +10,8 @@
  * governing permissions and limitations under the License.
  */
 
+@import url('brand.css');
+
 :root {
   /* colors — extracted from wknd-trendsetters.site */
   --background-color: #fff;
@@ -301,7 +303,7 @@ main > .section {
 }
 
 main > .section > div {
-  max-width: 1200px;
+  max-width: var(--content-max-width);
   margin: auto;
   padding: 0 24px;
 }
@@ -318,7 +320,8 @@ main > .section:first-of-type {
 
 /* section metadata */
 main .section.light,
-main .section.highlight {
+main .section.highlight,
+main .section.grey {
   background-color: var(--light-grey-color);
   margin: 0;
   padding: 40px 0;

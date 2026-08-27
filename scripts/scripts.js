@@ -232,6 +232,7 @@ export function decorateMain(main) {
   removeInvalidImages(main);
   decorateIcons(main);
   buildAutoBlocks(main);
+  decorateSectionMetadata(main);
   decorateSections(main);
   decorateSectionMetadata(main);
   decorateBlocks(main);
