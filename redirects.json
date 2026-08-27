@@ -1,0 +1,18 @@
+{
+  "total": 10,
+  "offset": 0,
+  "limit": 10,
+  "data": [
+    { "Source": "/case-studies", "Destination": "/content/blog" },
+    { "Source": "/fashion-insights", "Destination": "/content/blog" },
+    { "Source": "/fashion-trends-of-the-season", "Destination": "/content/index" },
+    { "Source": "/fashion-trends-young-adults", "Destination": "/content/index" },
+    { "Source": "/blog/ace-pro-court-polo", "Destination": "/content/blog/fashion-blog-post" },
+    { "Source": "/blog/fashion-trends-young-culture", "Destination": "/content/blog/fashion-blog-post" },
+    { "Source": "/blog/fashion-trends-young-style", "Destination": "/content/blog/fashion-blog-post" },
+    { "Source": "/blog/flip-flop-summer-style", "Destination": "/content/blog/fashion-blog-post" },
+    { "Source": "/blog/latest-trends-young-casual-fashion", "Destination": "/content/blog/fashion-blog-post" },
+    { "Source": "/blog/street-style-trends", "Destination": "/content/blog/fashion-blog-post" }
+  ],
+  ":type": "sheet"
+}
