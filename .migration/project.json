@@ -1,0 +1,9 @@
+{
+  "sites": {
+    "eds-ema-training": {
+      "previewOrg": "akshatn1",
+      "previewSite": "eds-ema-training",
+      "contentHostUrl": "https://content.da.live/akshatn1/eds-ema-training/"
+    }
+  }
+}
