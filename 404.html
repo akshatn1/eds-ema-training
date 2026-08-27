@@ -30,6 +30,30 @@
   <script nonce="aem" type="module">
     const main = document.querySelector('main');
 
+    // Client-side fallback for redirects.json (production edge applies these as real
+    // 301s; the local dev server does not, and some legacy paths only exist as
+    // redirect sources). If the current path matches a redirect Source, honor it.
+    try {
+      const { pathname, search, hash } = window.location;
+      const res = await fetch('/redirects.json');
+      if (res.ok) {
+        const { data = [] } = await res.json();
+        const norm = (p) => (p.length > 1 ? p.replace(/\/$/, '') : p);
+        const here = norm(pathname);
+        const match = data.find((row) => norm(row.Source || '') === here);
+        if (match && match.Destination && norm(match.Destination) !== here) {
+          window.location.replace(match.Destination + search + hash);
+          throw new Error('redirecting');
+        }
+      }
+    } catch (redirectError) {
+      if (redirectError.message === 'redirecting') {
+        // Stop rendering the 404 page; the browser is navigating away.
+        throw redirectError;
+      }
+      // Non-fatal: fall through to normal 404 rendering.
+    }
+
     try {
       const response = await fetch('/404.plain.html');
       if (!response.ok) throw new Error(`Unable to load authored 404 content: ${response.status}`);
