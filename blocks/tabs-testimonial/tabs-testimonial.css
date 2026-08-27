@@ -1,0 +1,88 @@
+.tabs-testimonial {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Active testimonial panel */
+.tabs-testimonial .tab-pane {
+  display: grid;
+  gap: 16px;
+  align-items: center;
+}
+
+.tabs-testimonial .tab-pane[hidden] {
+  display: none;
+}
+
+.tabs-testimonial .tab-pane img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+}
+
+.tabs-testimonial .tab-pane p {
+  font-size: 20px;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+.tabs-testimonial .tab-pane strong {
+  font-weight: 700;
+}
+
+/* Tab menu */
+.tabs-testimonial .tab-menu {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.tabs-testimonial .tab-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #e8e8e8;
+  border-radius: 16px;
+  background-color: #efefef;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.tabs-testimonial .tab-menu-link.is-active {
+  background-color: #f5f5f5;
+  border-color: #000;
+}
+
+.tabs-testimonial .tab-menu-link:hover {
+  border-color: #000;
+}
+
+.tabs-testimonial .tab-menu-link img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.tabs-testimonial .tab-menu-link strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+@media (width >= 900px) {
+  .tabs-testimonial .tab-pane {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs-testimonial .tab-menu {
+    grid-template-columns: 1fr 1fr;
+  }
+}

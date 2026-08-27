@@ -10,6 +10,7 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
+  toClassName,
 } from './aem.js';
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
@@ -180,6 +181,49 @@ function decorateButtons(main) {
 }
 
 /**
+ * Applies section-metadata tables as CSS classes / styles on their section.
+ * The bundled aem.js does not process section metadata, so it is handled here
+ * to keep authored `style` / `data-*` metadata working.
+ * @param {Element} main The main element
+ */
+function decorateSectionMetadata(main) {
+  main.querySelectorAll('div.section .section-metadata').forEach((meta) => {
+    const section = meta.closest('.section');
+    if (!section) return;
+    [...meta.children].forEach((row) => {
+      const cols = [...row.children];
+      if (cols.length < 2) return;
+      const key = toClassName(cols[0].textContent);
+      const value = cols[1].textContent.trim();
+      if (key === 'style') {
+        value.split(',').forEach((s) => {
+          const cls = toClassName(s.trim());
+          if (cls) section.classList.add(cls);
+        });
+      } else if (key) {
+        section.dataset[key] = value;
+      }
+    });
+    meta.remove();
+  });
+}
+
+/**
+ * Tags article-style pages so their typographic scale can differ from the
+ * landing scale. An article hero is a columns block containing the page H1
+ * inside an unstyled (non-variant) section, followed by long-form body copy.
+ * @param {Element} main The main element
+ */
+function decorateTemplateFromContent(main) {
+  const heroColumns = main.querySelector(
+    '.section:not(.grey):not(.accent):not(.inverse) .columns',
+  );
+  if (heroColumns && heroColumns.querySelector('h1') && main.querySelector('blockquote')) {
+    document.body.classList.add('template-article');
+  }
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -189,8 +233,10 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateSectionMetadata(main);
   decorateBlocks(main);
   decorateButtons(main);
+  decorateTemplateFromContent(main);
 }
 
 /**
