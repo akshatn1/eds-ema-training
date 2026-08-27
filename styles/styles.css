@@ -310,8 +310,20 @@ main > .section:first-of-type {
 
 /* section metadata */
 main .section.light,
-main .section.highlight {
+main .section.highlight,
+main .section.grey {
   background-color: var(--light-grey-color);
   margin: 0;
   padding: 40px 0;
+}
+
+main .section.inverse {
+  background-color: var(--dark-color);
+  color: var(--background-color);
+  margin: 0;
+  padding: 40px 0;
+}
+
+main .section.inverse a {
+  color: var(--background-color);
 }
