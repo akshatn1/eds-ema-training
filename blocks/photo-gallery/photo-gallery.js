@@ -46,6 +46,7 @@ function createDialog(images, galleryId) {
   counter.setAttribute('aria-live', 'polite');
 
   const playButton = createIconButton('photo-gallery-dialog-play', 'Start slideshow', '\u25b6');
+  playButton.setAttribute('aria-pressed', 'false');
   const closeButton = createIconButton('photo-gallery-dialog-close', 'Close gallery', '\u00d7');
   toolbar.append(counter, playButton, closeButton);
 
@@ -90,6 +91,7 @@ function createDialog(images, galleryId) {
     if (slideshowInterval) window.clearInterval(slideshowInterval);
     slideshowInterval = undefined;
     playButton.classList.remove('playing');
+    playButton.setAttribute('aria-pressed', 'false');
     playButton.setAttribute('aria-label', 'Start slideshow');
     playButton.querySelector('span').textContent = '\u25b6';
   };
@@ -119,6 +121,7 @@ function createDialog(images, galleryId) {
 
   const startSlideshow = () => {
     playButton.classList.add('playing');
+    playButton.setAttribute('aria-pressed', 'true');
     playButton.setAttribute('aria-label', 'Pause slideshow');
     playButton.querySelector('span').textContent = '\u275a\u275a';
     slideshowInterval = window.setInterval(
@@ -152,6 +155,9 @@ function createDialog(images, galleryId) {
   });
   dialog.addEventListener('close', stopSlideshow);
   dialog.addEventListener('cancel', stopSlideshow);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopSlideshow();
+  });
 
   return {
     dialog,
