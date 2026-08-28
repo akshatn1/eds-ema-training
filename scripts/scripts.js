@@ -10,9 +10,7 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
-  readBlockConfig,
   toClassName,
-  toCamelCase,
 } from './aem.js';
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
@@ -183,31 +181,46 @@ function decorateButtons(main) {
 }
 
 /**
- * Consumes `section-metadata` blocks and applies their config to the parent section.
- * The project's aem.js `decorateSections` does not process section metadata, so this
- * reads each `.section-metadata` block, applies `style` values as CSS classes on the
- * owning top-level section div, exposes other keys as `data-*` attributes, and removes
- * the block so it never renders as literal text or attempts to load a block module.
+ * Applies section-metadata tables as CSS classes / styles on their section.
+ * The bundled aem.js does not process section metadata, so it is handled here
+ * to keep authored `style` / `data-*` metadata working.
  * @param {Element} main The main element
  */
 function decorateSectionMetadata(main) {
-  main.querySelectorAll(':scope > div > div.section-metadata').forEach((blockEl) => {
-    const section = blockEl.parentElement;
-    const config = readBlockConfig(blockEl);
-    Object.keys(config).forEach((key) => {
-      const value = config[key];
+  main.querySelectorAll('div.section .section-metadata').forEach((meta) => {
+    const section = meta.closest('.section');
+    if (!section) return;
+    [...meta.children].forEach((row) => {
+      const cols = [...row.children];
+      if (cols.length < 2) return;
+      const key = toClassName(cols[0].textContent);
+      const value = cols[1].textContent.trim();
       if (key === 'style') {
-        const styles = Array.isArray(value) ? value : String(value).split(',');
-        styles
-          .map((style) => toClassName(style.trim()))
-          .filter((style) => style)
-          .forEach((style) => section.classList.add(style));
-      } else {
-        section.dataset[toCamelCase(key)] = value;
+        value.split(',').forEach((s) => {
+          const cls = toClassName(s.trim());
+          if (cls) section.classList.add(cls);
+        });
+      } else if (key) {
+        section.dataset[key] = value;
       }
     });
-    blockEl.remove();
+    meta.remove();
   });
+}
+
+/**
+ * Tags article-style pages so their typographic scale can differ from the
+ * landing scale. An article hero is a columns block containing the page H1
+ * inside an unstyled (non-variant) section, followed by long-form body copy.
+ * @param {Element} main The main element
+ */
+function decorateTemplateFromContent(main) {
+  const heroColumns = main.querySelector(
+    '.section:not(.grey):not(.accent):not(.inverse) .columns',
+  );
+  if (heroColumns && heroColumns.querySelector('h1') && main.querySelector('blockquote')) {
+    document.body.classList.add('template-article');
+  }
 }
 
 /**
@@ -221,8 +234,10 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSectionMetadata(main);
   decorateSections(main);
+  decorateSectionMetadata(main);
   decorateBlocks(main);
   decorateButtons(main);
+  decorateTemplateFromContent(main);
 }
 
 /**
